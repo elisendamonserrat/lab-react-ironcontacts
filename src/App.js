@@ -56,6 +56,13 @@ class App extends Component {
     })    
   }
 
+  handleDeleteContact = (contact) => {
+    const updatedContactList = this.state.contacts.filter(element => element.id !== contact.id);
+    this.setState({
+      contacts: updatedContactList,
+    })
+  }
+
 
   render() {
     const { contacts } = this.state;
@@ -77,7 +84,7 @@ class App extends Component {
           </tr>
             {contacts.map((contact) => {
               return (
-                < ContactsDetails contact={contact} key={contact.id}/>
+                < ContactsDetails contact={contact} key={contact.id} onDelete={this.handleDeleteContact}/>
               );
             })}
           </tbody>

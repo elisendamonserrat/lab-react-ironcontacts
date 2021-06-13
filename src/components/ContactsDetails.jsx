@@ -5,6 +5,10 @@ export class ContactsDetails extends Component {
         super(props);
       }
 
+    handleDelete = () => {
+      this.props.onDelete(this.props.contact)
+    }
+
     render() {
         const { name, popularity, pictureUrl } = this.props.contact;
         return (
@@ -14,6 +18,9 @@ export class ContactsDetails extends Component {
               </td>
               <td className="w-1/4">{name}</td>
               <td className="w-1/4">{popularity.toFixed(2)}</td>
+              <td>
+                <button className="border bg-red-400 font-semibold px-2 py-1 text-white" onClick={this.handleDelete} >Delete</button>
+              </td>
             </tr>
         )
     }
