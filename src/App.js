@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       contacts: contactsArray,
+      sortedAlphabetically: false,
      
     };
   }
@@ -28,6 +29,33 @@ class App extends Component {
     });
   }
 
+  sortByName = (list) => { 
+    return list.sort((a, b) => (a.name > b.name) ? 1 : -1)
+  };
+
+  handleSortByName = () => {
+    const initialContacts = [...this.state.contacts];
+    const contactsSortedByName = this.sortByName(initialContacts);
+
+    this.setState({
+      contacts: contactsSortedByName,
+      sortedAlphabetically: !this.state.sortedAlphabetically,
+    })    
+  }
+
+  sortByPopularity = (list) => { 
+    return list.sort((a, b) => (a.popularity < b.popularity) ? 1 : -1)
+  };
+
+  handleSortByPopularity= () => {
+    const initialContacts = [...this.state.contacts];
+    const contactsSortedByPopularity = this.sortByPopularity(initialContacts);
+
+    this.setState({
+      contacts: contactsSortedByPopularity,
+    })    
+  }
+
 
   render() {
     const { contacts } = this.state;
@@ -35,7 +63,11 @@ class App extends Component {
     return (
       <div className="container w-4/5 py-8 mx-auto text-center">
         <h1 className="text-3xl mb-8 font-bold">IronContacts</h1>
-        <button className="button px-2 py-1 mb-4 border-2 border-gray-600 font-semibold" onClick={this.handleAddContact}>Add Random Contact</button>
+
+        <button className="button px-2 py-1 mb-4 border-2 border-gray-600 font-semibold mr-2" onClick={this.handleAddContact}>Add Random Contact</button>
+        <button className="button px-2 py-1 mb-4 border-2 border-gray-600 font-semibold mr-2" onClick={this.handleSortByName}>Sort by Name</button>
+        <button className="button px-2 py-1 mb-4 border-2 border-gray-600 font-semibold" onClick={this.handleSortByPopularity}>Sort by Popularity</button>
+
         <table className="table-fixed w-2/5 mx-auto ">
         <tbody>
           <tr>
